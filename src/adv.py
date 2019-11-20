@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 
 # Declare all the rooms
@@ -37,7 +38,8 @@ room['treasure'].s_to = room['narrow']
 
 # Items
 
-# room['outside'].items = ['sword', 'shield']
+room['outside'].items = ['sword']
+room['foyer'].items = ['sword', 'shield', 'armor']
 
 #
 # Main
