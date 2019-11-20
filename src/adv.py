@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+
 
 # Declare all the rooms
 
@@ -21,7 +23,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -33,11 +34,29 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+# Items
+
+# room['outside'].items = ['sword', 'shield']
+
 #
 # Main
 #
 
+new_player = input('Welcome warrior, what is your name?')
+
+print(new_player)
 # Make a new player object that is currently in the 'outside' room.
+
+player = Player(new_player, room['outside'])
+
+print(player.current_room, player.current_room.list_items())
+
+
+# A way to properly list items in the rooms
+# A way to pick up items and attach to the player
+# A way to remove the itme from the room
+
 
 # Write a loop that:
 #
@@ -49,3 +68,29 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+user_choice = ''
+
+while user_choice is not 'q':
+    user_choice = input(
+        "Choose a direction to move. Enter n, s, e, or w, or q to quit:")
+    if user_choice == 'n':
+        if hasattr(player.current_room, "n_to"):
+            player.current_room = player.current_room.n_to
+            print(player.current_room, player.current_room.list_items())
+    elif user_choice == 's':
+        if hasattr(player.current_room, "s_to"):
+            player.current_room = player.current_room.s_to
+            print(player.current_room, player.current_room.list_items())
+    elif user_choice == 'e':
+        if hasattr(player.current_room, "e_to"):
+            player.current_room = player.current_room.e_to
+            print(player.current_room, player.current_room.list_items())
+    elif user_choice == 'w':
+        if hasattr(player.current_room, "w_to"):
+            player.current_room = player.current_room.w_to
+            print(player.current_room, player.current_room.list_items())
+    elif user_choice == 'list':
+        print(player.current_room.list_items())
+    else:
+        print("There is nothing in that direction")
